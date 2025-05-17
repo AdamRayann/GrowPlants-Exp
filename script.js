@@ -96,7 +96,7 @@ function grow() {
   const stageRatio = height / profile.maxHeight;
   const stageIndex = Math.min(11, Math.max(1, Math.floor(stageRatio * 12)));
   
-  const imgPath = `img/${selectedSeed}_stage${stageIndex}.png`;
+  const imgPath = `/img/${selectedSeed}_stage${stageIndex}.png`;
 
   document.getElementById("sunflower-img").src = imgPath;
 }
@@ -107,7 +107,7 @@ function resetSimulation() {
   selectedSeed = null;
   const messageBox = document.getElementById("message");
   messageBox.textContent = ""; // Clear the message
-  document.getElementById("sunflower-img").src = "img/empty_plot.png";
+  document.getElementById("sunflower-img").src = "/img/empty_plot.png";
   document.querySelector("#growth-log tbody").innerHTML = "";
 }
 
@@ -120,7 +120,7 @@ function selectSeed(event) {
   height = 0;
 
   hideInstruction();
-  document.getElementById("sunflower-img").src = `img/${selectedSeed}_stage0.png`;
+  document.getElementById("sunflower-img").src = `/img/${selectedSeed}_stage0.png`;
   document.querySelector("#growth-log tbody").innerHTML = "";
   const messageBox = document.getElementById("message");
   messageBox.textContent = ""; // Clear the message
@@ -161,4 +161,11 @@ function hideInstruction() {
 document.getElementById("manure").addEventListener("change", function () {
   const img = document.getElementById("manure-img");
   img.style.display = this.checked ? "block" : "none";
+});
+
+
+const stages = Array.from({ length: 12 }, (_, i) => i);
+stages.forEach(i => {
+  const img = new Image();
+  img.src = `/img/${selectedSeed}_stage${i}.png`;
 });
