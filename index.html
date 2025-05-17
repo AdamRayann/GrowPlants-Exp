@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>محاكاة نمو النباتات</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>محاكاة نمو النباتات</h1>
+  <div class="controls">
+    <div class="control-group">
+      <label for="sunlight">أشعة الشمس☀️ :</label>
+      <select id="sunlight">
+        <option>4 ساعات/اليوم</option>
+        <option>8 ساعات/اليوم</option>
+        <option selected>12 ساعات/اليوم</option>
+        <option>16 ساعات/اليوم</option>
+      </select>
+    </div>
+    <div class="control-group">
+      <label for="water">الماء💧 :</label>
+      <select id="water">
+        <option>0.5 لتر/اليوم</option>
+        <option selected>1 لتر/اليوم</option>
+        <option>2 لتر/اليوم</option>
+      </select>
+    </div>
+    <div class="control-group">
+      <label for="soil">نوع التربة🪴 :</label>
+      <select id="soil">
+        <option value="5.5">رملية</option>
+        <option value="7.0" selected>طينية</option>
+      </select>
+    </div>
+ <div class="control-group">
+  <label for="manure">تسميد🌿: </label>
+  <input type="checkbox" id="manure">
+</div>
+
+  </div>
+
+<div class="seed-selection">
+
+  <div class="seeds">
+    <h3>ازرع البذرة:</h3>
+    <img src="img/instructions.gif" id="drag-instruction" class="drag-instruction" alt="تعليمات السحب">
+    <div class="seed-item">
+      <img src="img/seed_sunflower.png" draggable="true" id="sunflower" class="seed" title="دوار الشمس">
+      <p>دوار الشمس🌻 </p>
+    </div>
+    <div class="seed-item">
+      <img src="img/seed_corn.png" draggable="true" id="corn" class="seed" title="الذرة">
+      <p>الذرة 🌽 </p>
+    </div>
+    <div class="seed-item">
+      <img src="img/seed_tomato.png" draggable="true" id="tomato" class="seed" title="الطماطم">
+      <p> الطماطم 🍅 </p>
+    </div>
+  </div>
+</div>
+ 
+  
+  <div class="simulation">
+    <div class="sunflower-container" id="drop-zone" ondragover="event.preventDefault()" ondrop="selectSeed(event)">
+      <img id="sunflower-img" src="img/empty_plot.png" alt="الزرع">
+      <img id="manure-img" src="img/manure.png" alt="السماد" style="display: none;">
+
+      
+
+    </div>    
+    <table id="growth-log">
+      <thead>
+        <tr>
+          <th>الأسبوع</th>
+          <th>أشعة الشمس (ساعات/اليوم)</th>
+          <th>الماء (لتر/اليوم)</th>
+          <th>نوع التربة</th>
+          <th>الطول (سم)</th>
+          <th>التسميد</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    
+
+  </div>
+  <div id="message" class="message"></div>
+
+  <div class="buttons">
+    <button onclick="grow()">نمِّ النبتة</button>
+    <button onclick="resetSimulation()">إعادة تعيين</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
