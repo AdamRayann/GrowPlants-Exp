@@ -1,7 +1,8 @@
 let week = 0;
 let height = 0;
 let selectedSeed = null;
-
+let grownStageCounter = 0;
+let lastStageDisplayed = false;
 const seedGrowthProfiles = {
   sunflower: {
     base: 2.2,
@@ -55,6 +56,7 @@ function grow() {
 
   const profile = seedGrowthProfiles[selectedSeed];
   const soilEffect = Math.abs(profile.soilIdeal - soil) <= 0.3 ? 1 : profile.soilPenalty;
+ 
 
   // Adjusted growth logic for faster and realistic growth
   let manureVal = manure ? 1 : 0;
@@ -95,10 +97,24 @@ function grow() {
   // ⬇️ Choose stage based on height-to-max ratio (0–8)
   const stageRatio = height / profile.maxHeight;
   const stageIndex = Math.min(11, Math.max(1, Math.floor(stageRatio * 12)));
-  
-  const imgPath = `/img/${selectedSeed}_stage${stageIndex}.png`;
+  let imgPath;
+  if(stageIndex ===1){
+    lastStageDisplayed = false;
+    grownStageCounter=0;
+  }
+
+  if (stageIndex === 11 && week <= 6 && lastStageDisplayed===true) {
+    imgPath = `/img/${selectedSeed}_stage_grown${grownStageCounter}.png`;
+    grownStageCounter = Math.min(grownStageCounter + 1, 2); // increase but max out at 2
+  } else {
+    if(stageIndex === 11 ){
+      lastStageDisplayed =true;
+    }
+    imgPath = `/img/${selectedSeed}_stage${stageIndex}.png`;
+  }
 
   document.getElementById("sunflower-img").src = imgPath;
+
 }
 
 function resetSimulation() {
@@ -169,3 +185,5 @@ stages.forEach(i => {
   const img = new Image();
   img.src = `/img/${selectedSeed}_stage${i}.png`;
 });
+
+
